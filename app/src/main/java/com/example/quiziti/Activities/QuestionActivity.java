@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,6 +39,11 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Objects.requireNonNull(getSupportActionBar()).hide();
+
+        resetTimer();
+        timer.start();
+
+
         String setName = getIntent().getStringExtra("set");
 
         if (setName.equals("SET-1")){
@@ -57,14 +64,20 @@ public class QuestionActivity extends AppCompatActivity {
 
         binding.btnNext.setOnClickListener(view -> {
 
+            if (timer != null){
+                timer.cancel();
+            }
+
+            assert timer != null;
+            timer.start();
             binding.btnNext.setEnabled(false);
             binding.btnNext.setAlpha((float) 0.3);
-            enableOption(true);
+            enableOption();
             position ++;
             if (position==list.size()){
 
 
-                    Intent intent = new Intent(com.example.quiziti.Activities.QuestionActivity.this,ScoreActivity.class);
+                    Intent intent = new Intent(QuestionActivity.this,ScoreActivity.class);
                     intent.putExtra("score",score);
                     intent.putExtra("total",list.size());
                     startActivity(intent);
@@ -78,6 +91,37 @@ public class QuestionActivity extends AppCompatActivity {
         });
 
 
+
+    }
+
+    private void resetTimer() {
+
+        timer = new CountDownTimer(20000, 1000) {
+            @Override
+            public void onTick(long l) {
+                binding.timer.setText(String.valueOf(l/1000));
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                Dialog dialog = new Dialog(QuestionActivity.this);
+                dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.timeout_dialog);
+                dialog.findViewById(R.id.tryAgain).setOnClickListener(view -> {
+
+                    Intent intent = new Intent(QuestionActivity.this, SetsActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                });
+
+                dialog.show();
+
+            }
+        };
 
     }
 
@@ -124,7 +168,7 @@ public class QuestionActivity extends AppCompatActivity {
                                 ((TextView)view).setText(data);
                                 
                             } catch (Exception e) {
-                                binding.totalQuestion.setText(position+1+"/"+list.size());
+                                binding.totalQuestions.setText(position+1+"/"+list.size());
                                 ((Button)view).setText(data);
                             }
 
@@ -149,20 +193,24 @@ public class QuestionActivity extends AppCompatActivity {
 
     }
 
-    private void enableOption(boolean enable) {
+    private void enableOption() {
 
         for(int  i = 0; i<4; i++){
 
-            binding.optionContainer.getChildAt(i).setEnabled(enable);
-            if (enable){
+            binding.optionContainer.getChildAt(i).setEnabled(true);
 
-                binding.optionContainer.getChildAt(i).setBackgroundResource(R.drawable.btn_opt);
-            }
+            binding.optionContainer.getChildAt(i).setBackgroundResource(R.drawable.btn_opt);
         }
 
     }
 
     private void checkAnswer(Button selectedOption) {
+
+        if (timer != null){
+
+            timer.cancel();
+
+        }
 
         binding.btnNext.setEnabled(true);
         binding.btnNext.setAlpha(1);
@@ -221,4 +269,4 @@ public class QuestionActivity extends AppCompatActivity {
                 , "15.6", "31.2", "7.8", "20.4", "31.2"));
 
     }
-}                                                                                     
+}
