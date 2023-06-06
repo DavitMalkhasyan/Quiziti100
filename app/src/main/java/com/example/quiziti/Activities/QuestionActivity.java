@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -17,6 +18,7 @@ import com.example.quiziti.R;
 import com.example.quiziti.databinding.ActivityQuestionBinding;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -34,7 +36,7 @@ public class QuestionActivity extends AppCompatActivity {
         binding = ActivityQuestionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         String setName = getIntent().getStringExtra("set");
 
         if (setName.equals("SET-1")){
@@ -45,31 +47,21 @@ public class QuestionActivity extends AppCompatActivity {
             setTwo();
             
         }
-        int i;
-        for (i = 0; i<4; i++){
 
-            binding.optionContainer.getChildAt(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        for (int i = 0; i<4; i++){
 
-                    
-                    checkAnswer((Button) view);
-
-                }
-            });
+            binding.optionContainer.getChildAt(i).setOnClickListener(view -> checkAnswer((Button) view));
         }
 
         playAnimation(binding.question, 0, list.get(position).getQuestion());
 
-        binding.btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.btnNext.setOnClickListener(view -> {
 
-                binding.btnNext.setEnabled(false);
-                binding.btnNext.setAlpha((float) 0.3);
-                enableOption(true);
-                position ++;
-                if (position==list.size()){
+            binding.btnNext.setEnabled(false);
+            binding.btnNext.setAlpha((float) 0.3);
+            enableOption(true);
+            position ++;
+            if (position==list.size()){
 
 
                     Intent intent = new Intent(com.example.quiziti.Activities.QuestionActivity.this,ScoreActivity.class);
@@ -80,10 +72,9 @@ public class QuestionActivity extends AppCompatActivity {
                     return;
                 }
 
-                count = 0;
-                playAnimation(binding.question,0,list.get(position).getQuestion());
+            count = 0;
+            playAnimation(binding.question,0,list.get(position).getQuestion());
 
-            }
         });
 
 
@@ -122,6 +113,7 @@ public class QuestionActivity extends AppCompatActivity {
 
                     }
 
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onAnimationEnd(@NonNull Animator animation) {
 
@@ -158,21 +150,15 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void enableOption(boolean enable) {
-        int i;
 
-        for( i = 0; i<4; i++){
-
+        for(int  i = 0; i<4; i++){
 
             binding.optionContainer.getChildAt(i).setEnabled(enable);
+            if (enable){
+
+                binding.optionContainer.getChildAt(i).setBackgroundResource(R.drawable.btn_opt);
+            }
         }
-
-        if (enable){
-
-
-
-            binding.optionContainer.getChildAt(i).setBackgroundResource(R.drawable.btn_opt);
-        }
-
 
     }
 
@@ -191,7 +177,7 @@ public class QuestionActivity extends AppCompatActivity {
 
             selectedOption.setBackgroundResource(R.drawable.wrong_answ);
 
-            Button correctOption = (Button) binding.optionContainer.findViewWithTag(list.get(position).getCorrectAnswer());
+            Button correctOption = binding.optionContainer.findViewWithTag(list.get(position).getCorrectAnswer());
             correctOption.setBackgroundResource(R.drawable.right_answ);
 
 

@@ -73,7 +73,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/category"
+                    android:background="#A8A6B1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -104,7 +104,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/category"
+                    android:background="#A8A6B1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -135,7 +135,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/category"
+                    android:background="#A8A6B1"
                     android:gravity="center"
                     android:orientation="vertical">
 
