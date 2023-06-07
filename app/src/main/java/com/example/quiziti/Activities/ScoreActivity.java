@@ -29,6 +29,7 @@ public class ScoreActivity extends AppCompatActivity {
         int wrong = totalScore - correctAnsw;
 
         binding.totalQuestions.setText(String.valueOf(totalScore));
+        binding.wrongAnsw.setText(String.valueOf(correctAnsw));
         binding.wrongAnsw.setText(String.valueOf(wrong));
 
         binding.btnRetry.setOnClickListener(new View.OnClickListener() {

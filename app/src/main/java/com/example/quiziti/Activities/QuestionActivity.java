@@ -53,6 +53,14 @@ public class QuestionActivity extends AppCompatActivity {
 
             setTwo();
             
+        } else if (setName.equals("SET-3")) {
+
+            setThree();
+
+        } else if (setName.equals("SET-4")) {
+
+            setFour();
+
         }
 
         for (int i = 0; i<4; i++){
@@ -94,6 +102,30 @@ public class QuestionActivity extends AppCompatActivity {
 
     }
 
+    private void setFour() {
+        
+
+
+
+    }
+
+    private void setThree() {
+        list.add(new QuestionModel("Without using a calculator, find the value of 3/8 * 4/5"
+                , "7/13", "15/32", "3/5", "3/10", "3/10"));
+
+        list.add(new QuestionModel("Choose the expression that does not simplify to p."
+                , "5p − 4p", "p ÷ p + p − p", "p − p + q + p − q", "pq + 2p − p − pq", "p ÷ p + p − p"));
+
+        list.add(new QuestionModel("Which of the following is the expression for the nth term of the sequence 3, 5, 7, 9, ... ?"
+                , "2n", "2n + 1", "3n + 2", "n + 2", "2n + 1"));
+
+        list.add(new QuestionModel("2/7 of the sweets in a jar are red. What is the ratio of sweets that are red to sweets that are not red?"
+                , "3/7", "5/7", "5/2", "2/5", "2/5"));
+
+        list.add(new QuestionModel("The variables v and d are in inverse proportion. Which of the following equations relates v and d?"
+                , "v = k/d", " v = kd", "v = d/k", "v = ‑kd", "v = k/d"));
+    }
+
     private void resetTimer() {
 
         timer = new CountDownTimer(20000, 1000) {
@@ -118,7 +150,7 @@ public class QuestionActivity extends AppCompatActivity {
 
                 });
 
-                dialog.show();
+ //               dialog.show();
 
             }
         };

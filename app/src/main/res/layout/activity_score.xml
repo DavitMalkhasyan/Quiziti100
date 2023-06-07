@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView13" />
 
             <TextView
-                android:id="@+id/rightAnsw"
+                android:id="@+id/correctAnsw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
