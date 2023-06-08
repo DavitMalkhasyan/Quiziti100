@@ -1,13 +1,13 @@
 package com.example.quiziti.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.quiziti.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.quiziti.databinding.ActivityScoreBinding;
+
+import java.util.Objects;
 
 public class ScoreActivity extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class ScoreActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
 
         int totalScore = getIntent().getIntExtra("total",0);
@@ -32,15 +32,12 @@ public class ScoreActivity extends AppCompatActivity {
         binding.wrongAnsw.setText(String.valueOf(correctAnsw));
         binding.wrongAnsw.setText(String.valueOf(wrong));
 
-        binding.btnRetry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.btnRetry.setOnClickListener(view -> {
 
-                Intent intent = new Intent(ScoreActivity.this,SetsActivity.class);
-                startActivity(intent);
-                finish();
+            Intent intent = new Intent(ScoreActivity.this,SetsActivity.class);
+            startActivity(intent);
+            finish();
 
-            }
         });
 
 
