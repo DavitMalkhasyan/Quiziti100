@@ -51,7 +51,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         } else if (setName.equals("SET-2")) {
             setTwo();
-            
+
         } else if (setName.equals("SET-3")) {
             setThree();
 
@@ -354,7 +354,6 @@ public class QuestionActivity extends AppCompatActivity {
                         }
 
                     }
-
                     @Override
                     public void onAnimationCancel(@NonNull Animator animation) {
 
